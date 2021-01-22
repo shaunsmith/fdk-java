@@ -52,18 +52,21 @@ public class ErrorMessagesTest {
 
     @Test
     public void userSpecifiesNonExistentClass(){
+        fn.givenEvent().enqueue();
         fn.thenRun("NonExistentClass", "method");
         assertIsErrorWithoutStacktrace("Class 'NonExistentClass' not found in function jar. It's likely that the 'cmd' entry in func.yaml is incorrect.");
     }
 
     @Test
     public void userSpecifiesClassWithNoMethods(){
+        fn.givenEvent().enqueue();
         fn.thenRun(ErrorMessages.NoMethodsClass.class, "thisClassHasNoMethods");
         assertIsErrorWithoutStacktrace("Method 'thisClassHasNoMethods' was not found in class 'com.fnproject.fn.runtime.testfns.ErrorMessages.NoMethodsClass'. Available functions were: []");
     }
 
     @Test
     public void userSpecifiesMethodWhichDoesNotExist(){
+        fn.givenEvent().enqueue();
         fn.thenRun(ErrorMessages.OneMethodClass.class, "notTheMethod");
         assertIsErrorWithoutStacktrace("Method 'notTheMethod' was not found in class 'com.fnproject.fn.runtime.testfns.ErrorMessages.OneMethodClass'. Available functions were: [theMethod]");
     }

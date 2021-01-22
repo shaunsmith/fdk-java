@@ -149,6 +149,7 @@ public class EndToEndInvokeTest {
 
     @Test
     public void shouldPrintErrorOnUnknownMethod() throws Exception {
+        fn.givenEvent().enqueue();
         fn.thenRun(TestFn.class, "unknownMethod");
         assertThat(fn.exitStatus()).isEqualTo(2);
         assertThat(fn.getOutputs()).isEmpty();
@@ -158,6 +159,7 @@ public class EndToEndInvokeTest {
 
     @Test
     public void shouldPrintErrorOnUnknownClass() throws Exception {
+        fn.givenEvent().enqueue();
 
 
         fn.thenRun("com.fnproject.unknown.Class", "unknownMethod");
@@ -255,6 +257,7 @@ public class EndToEndInvokeTest {
 
     @Test
     public void shouldRejectDuplicateMethodsInFunctionClass() throws Exception {
+        fn.givenEvent().enqueue();
 
         fn.thenRun(BadTestFnDuplicateMethods.class, "fn");
         assertThat(fn.getOutputs()).isEmpty();
